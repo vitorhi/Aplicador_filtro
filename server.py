@@ -8,21 +8,20 @@ CORS(app)
 
 @app.route('/', methods=['POST'])
 def get_data():
-	# image_url=request.data.decode('ascii')
+	
 	received=request.get_json(silent=True)
-	print('Recebida do cliente: {}'.format(received))
 
+	# Separando os dados recebidos
 	image_url=received["url"]
 	fil_str=received["filter"]
 	intensity=int(received["intensity"])
+
+	# Filtrando a imagem
 	image=url_to_filtered_image(image_url,fil_str,intensity)
 	
+	# Envia a imagem filtrada como resposta
+	resp = Response(image, status=200, mimetype='image/jpeg')
+	return resp
 	
-	return send_file('image.jpg', mimetype='image/jpg')
-	return response
-
-	
-	# return app.send_static_file('image.jpg')
-	# return send_file("image.jpg", mimetype='image/jpg')
 if __name__ == '__main__':
 	app.run(debug=False)

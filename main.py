@@ -6,6 +6,7 @@ import numpy as np
 from urllib.request import Request, urlopen
 import cv2
 from filters import Filters
+import base64
 
 
 def url_to_image(url):
@@ -19,9 +20,9 @@ def url_to_image(url):
 	return image
 
 def url_to_filtered_image(image_url,fil_str,intensity):
-	""" Recebe url da imagem, nome do filtro e intensidade e retorna imagem filtrada"""
+	""" Recebe url da imagem, nome do filtro e intensidade e retorna imagem filtrada em string
+	de bytes"""
 
-	# filename = image_url.split("/")[-1]
 
 	filename="image.jpg"
 	image = url_to_image(image_url)
@@ -43,20 +44,21 @@ def url_to_filtered_image(image_url,fil_str,intensity):
 	# Salva imagem
 	cv2.imwrite(filename, image) 
 
-	# Armazena em um buffer
+	# Armazena em um buffer e converte para base64
 	retval, buff = cv2.imencode('.jpg', image)
-	
+	base64_bytes = base64.b64encode(buff.tostring())
+
 	# Envia imagem filtrada
-	# return buff
+	return base64_bytes
 
-	# Mostra a imagem filtrada
-	cv2.imshow('imagem', image)
+	# # Mostra a imagem filtrada
+	# cv2.imshow('imagem', image)
 
-	# Espera o fechamento da janela da imagem
-	while cv2.getWindowProperty('imagem', cv2.WND_PROP_VISIBLE) > 0:
-		keyCode = cv2.waitKey(50)
+	# # Espera o fechamento da janela da imagem
+	# while cv2.getWindowProperty('imagem', cv2.WND_PROP_VISIBLE) > 0:
+	# 	keyCode = cv2.waitKey(50)
 
-	cv2.destroyAllWindows()
+	# cv2.destroyAllWindows()
 
 	
 

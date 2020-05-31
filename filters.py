@@ -2,16 +2,20 @@ import cv2
 
 
 class Filters(object):
-    """Classe que abriga funcoes de filtros"""
+    """Classe que abriga metodos de filtros"""
 
     def __init__(self):
         
-        self.filter_funcs = [self.gaussian_blur, self.median_blur,self.denoiser_enhance, self.unsharp_enhance]
-        self.filter_names = ['Gaussian Blur','Median Blur','Denoiser Enhance','Unsharp Enhance']
+        self.filter_funcs = [self.gaussian_blur, self.median_blur,
+                             self.denoiser_enhance, self.unsharp_enhance]
+        self.filter_names = ['Gaussian Blur','Median Blur',
+                             'Denoiser Enhance','Unsharp Enhance']
        
-
-    # Filtro de Blur Gaussiano
+    # Metodos dos filtros:
+    
     def gaussian_blur(self, image, size):
+        # Filtro de Blur Gaussiano
+
         if size < 0:
             raise Exception("Só são aceitos valores maiores do que 0") 
         # Convertendo size para ímpar
@@ -21,6 +25,8 @@ class Filters(object):
         return cv2.GaussianBlur(image, (size, size), 0)
 
     def median_blur(self, image, size):
+        # Filtro de Blur Mediano
+
         if size < 0:
             raise Exception("Só são aceitos valores maiores do que 0") 
         # Convertendo size para ímpar
@@ -29,6 +35,8 @@ class Filters(object):
         return cv2.medianBlur(image, size)
 
     def denoiser_enhance(self,image, size):
+        # Filtro de exclusão de ruído
+
         if size < 0:
             raise Exception("Só são aceitos valores maiores do que 0") 
         # Convertendo size para ímpar
@@ -38,6 +46,8 @@ class Filters(object):
         return cv2.fastNlMeansDenoisingColored(image,None,10,10,7,size)
 
     def unsharp_enhance(self, image, size):
+        # Filtro de Sharpness
+
         if size < 0:
             raise Exception("Só são aceitos valores maiores do que 0") 
         # Convertendo size para ímpar

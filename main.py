@@ -26,6 +26,8 @@ def url_to_image(url):
 
 # Seleciona a URL da foto
 image_url = input("Digite uma Url de uma imagem: ")
+filename = image_url.split("/")[-1]
+
 image = url_to_image(image_url)
 
 # Inicia classe de Filtros e lista os filtros disponíveis
@@ -41,6 +43,9 @@ num_param = int(input("Indique o parâmetro do filtro: "))
 
 # Executa a funcao do filtro sobre a imagem 
 image = fil.filter_funcs[num_filter](image, num_param)
+
+# Salva imagem
+cv2.imwrite(filename, image) 
 
 # Mostra a imagem filtrada
 cv2.imshow('imagem', image)

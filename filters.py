@@ -8,16 +8,15 @@ class Filters(object):
         
         self.filter_funcs = [self.gaussian_blur, self.median_blur,
                              self.denoiser_enhance, self.unsharp_enhance,
-                             self.erode, self.dilate, self.laplacian_edge]
+                             self.laplacian_edge, self.erode, self.dilate]
         self.filter_names = ['Gaussian Blur','Median Blur',
                              'Denoiser Enhance','Unsharp Enhance',
-                             'Erode', 'Dilate','Laplacian Edge']
+                             'Laplacian Edge', 'Erode', 'Dilate']
        
     # Metodos dos filtros:
     
     def gaussian_blur(self, image, size):
         # Filtro de Blur Gaussiano
-
         if size < 0:
             raise Exception("Só são aceitos valores maiores do que 0") 
         # Convertendo size para ímpar

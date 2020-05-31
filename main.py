@@ -18,33 +18,36 @@ def url_to_image(url):
 	# Retorna imagem
 	return image
 
-def url_to_filtered_image(image_url):
+def url_to_filtered_image(image_url,fil_str,intensity):
+	""" Recebe url da imagem, nome do filtro e intensidade e retorna imagem filtrada"""
 
-	filename = image_url.split("/")[-1]
+	# filename = image_url.split("/")[-1]
 
+	filename="image.jpg"
 	image = url_to_image(image_url)
 
 	# Inicia classe de Filtros e lista os filtros disponíveis
 	fil = Filters()
-	print("Lista de filtros disponíveis:\n")
 	for i,item in enumerate(fil.filter_names):
-		print(str(i) + "- " + item 	+ "\n")
+		if item == fil_str:
+			break
 
 	# Recebe os inputs do usuário para selecionar o filtro
 	# e sua intensidade
-	num_filter=-1
-	num_param=-1
-	while num_filter<0 or num_filter>=len(fil.filter_names):
-		num_filter = int(input("Indique o número do filtro: "))
-
-	while num_param<=0 or num_param>999:
-		num_param = int(input("Indique a intensidade do filtro (valores acima de 0): "))
+	num_filter=i
+	num_param=intensity
 
 	# Executa a funcao do filtro sobre a imagem 
 	image = fil.filter_funcs[num_filter](image, num_param)
 
 	# Salva imagem
 	cv2.imwrite(filename, image) 
+
+	# Armazena em um buffer
+	retval, buff = cv2.imencode('.jpg', image)
+	
+	# Envia imagem filtrada
+	# return buff
 
 	# Mostra a imagem filtrada
 	cv2.imshow('imagem', image)

@@ -8,10 +8,10 @@ class Filters(object):
         
         self.filter_funcs = [self.gaussian_blur, self.median_blur,
                              self.denoiser_enhance, self.unsharp_enhance,
-                             self.erode, self.dilate]
+                             self.erode, self.dilate, self.laplacian_edge]
         self.filter_names = ['Gaussian Blur','Median Blur',
                              'Denoiser Enhance','Unsharp Enhance',
-                             'Erode', 'Dilate']
+                             'Erode', 'Dilate','Laplacian Edge']
        
     # Metodos dos filtros:
     
@@ -74,3 +74,14 @@ class Filters(object):
        
        kernel = np.ones((size,size),np.uint8)
        return cv2.dilate(image,kernel,iterations = 1)
+   
+    def laplacian_edge(self, image, size):
+        # Filtro Laplaciano para bordas
+
+        if size < 0:
+            raise Exception("Só são aceitos valores maiores do que 0") 
+        # Convertendo size para ímpar
+        if size % 2 == 0:
+            size += 1
+
+        return cv2.Laplacian(image,cv2.CV_64F,ksize=size)

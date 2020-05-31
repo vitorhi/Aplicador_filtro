@@ -1,6 +1,7 @@
 # Aplicador_filtro
 Programa em Python que recebe a URL de uma imagem, aplica um filtro de sua escolha, salva a imagem e a mostra pro usuário.
-Dentre outras, as principais bibliotecas utilizadas são:
+
+Dentre outras bibliotecas, as principais utilizadas são:
 * Opencv
 * Axios
 * Flask-CORS
